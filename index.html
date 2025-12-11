@@ -5,6 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For Mbote Ivy Wambui 💖</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Minimal styles for the play overlay and visualizer so it works even if style.css is missing */
+    #play-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      z-index: 50;
+      backdrop-filter: blur(4px);
+    }
+    #play-overlay.hidden { display: none; }
+    #play-btn {
+      background: linear-gradient(135deg,#ff6ea1,#ff9ad0);
+      border: none;
+      color: white;
+      padding: 18px 28px;
+      border-radius: 999px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    #visualizer {
+      width: 100%;
+      height: 120px;
+      display: block;
+      margin-top: 12px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.15);
+    }
+    .audio-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .small-btn {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+  </style>
 </head>
 <body>
   <!-- Constant background -->
@@ -17,10 +66,22 @@
   <div class="content">
 
     <!-- Music player -->
-   <audio controls>
-  <source src="https://song-4dakuo8of-wilson-1907s-projects.vercel.app/unanifaa.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+    <!-- Add crossorigin so WebAudio can analyse cross-origin media (server must allow it) -->
+    <audio id="audio" crossorigin="anonymous">
+      <source src="https://song-4dakuo8of-wilson-1907s-projects.vercel.app/unanifaa.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Visualizer canvas -->
+    <canvas id="visualizer" aria-hidden="true"></canvas>
+
+    <!-- Simple audio controls (we'll wire them with JS) -->
+    <div class="audio-controls">
+      <button id="toggle-play" class="small-btn">Play</button>
+      <label for="volume">Volume</label>
+      <input id="volume" type="range" min="0" max="1" step="0.01" value="0.9">
+    </div>
+
     <!-- Slideshow -->
     <div class="slideshow">
       <div class="slides fade">
@@ -51,17 +112,11 @@
     <footer>Made with ❤️ by Wilson for his queen, Ivy 💞</footer>
   </div>
 
+  <!-- Play overlay - required as most browsers block autoplay with sound -->
+  <div id="play-overlay" role="dialog" aria-label="Start audio">
+    <button id="play-btn" aria-pressed="false">▶︎ Play the song for Ivy</button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
