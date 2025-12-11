@@ -37,7 +37,7 @@ function typeWriterEffect(element, text, speed = 45) {
 
 // Text contents
 const texts = {
-  letter: `💌 My Dearest Mercy,
+  letter: `💌 My Dearest IVY,
 
 From the moment you entered my life, everything changed.  
 Your laughter is my music, your eyes my light, your love my strength.  
@@ -88,4 +88,5 @@ playBtn.addEventListener("click", () => {
     playBtn.textContent = "🔈";
   }
 });
+
 
